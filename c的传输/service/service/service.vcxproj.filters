@@ -27,5 +27,8 @@
     <ClCompile Include="str_service.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="file_client_java.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
