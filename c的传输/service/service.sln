@@ -13,6 +13,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "str_service", "str_service\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "file_service_qt", "file_service_qt\file_service_qt.vcxproj", "{B271A28A-AC6D-44EB-87C8-335226DE09E9}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test_qt", "test_qt\test_qt.vcxproj", "{28DEA53C-56FC-40F8-9B50-3866B55F8A1E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -59,6 +61,12 @@ Global
 		{B271A28A-AC6D-44EB-87C8-335226DE09E9}.Release|Win32.ActiveCfg = Release|x64
 		{B271A28A-AC6D-44EB-87C8-335226DE09E9}.Release|x64.ActiveCfg = Release|x64
 		{B271A28A-AC6D-44EB-87C8-335226DE09E9}.Release|x64.Build.0 = Release|x64
+		{28DEA53C-56FC-40F8-9B50-3866B55F8A1E}.Debug|Win32.ActiveCfg = Debug|x64
+		{28DEA53C-56FC-40F8-9B50-3866B55F8A1E}.Debug|x64.ActiveCfg = Debug|x64
+		{28DEA53C-56FC-40F8-9B50-3866B55F8A1E}.Debug|x64.Build.0 = Debug|x64
+		{28DEA53C-56FC-40F8-9B50-3866B55F8A1E}.Release|Win32.ActiveCfg = Release|x64
+		{28DEA53C-56FC-40F8-9B50-3866B55F8A1E}.Release|x64.ActiveCfg = Release|x64
+		{28DEA53C-56FC-40F8-9B50-3866B55F8A1E}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

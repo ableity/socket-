@@ -1,4 +1,5 @@
-#include "file_service_qt.h"
+#include "workthread.h"
+#include <qdebug.h>
 #define _CRT_SECURE_NO_WARNINGS
 #define _WINSOCK_DEPRECATED_NO_WARNINGS
 #include <stdio.h>
@@ -62,20 +63,18 @@ void SendFile() {
 }
 
 
-file_service_qt::file_service_qt(QWidget *parent)
-    : QMainWindow(parent)
+workthread::workthread()
 {
-    ui.setupUi(this);
+
 }
 
-int thread_socket()
+void workthread::run()
 {
 	//初始化WSA  
 	WORD sockVersion = MAKEWORD(2, 2);
 	WSADATA wsaData;
 	if (WSAStartup(sockVersion, &wsaData) != 0)
 	{
-		return 0;
 	}
 
 	//创建套接字  
@@ -83,7 +82,6 @@ int thread_socket()
 	if (slisten == INVALID_SOCKET)
 	{
 		//printf("socket error !");
-		return 0;
 	}
 
 	//绑定IP和端口  
@@ -100,7 +98,6 @@ int thread_socket()
 	if (listen(slisten, 5) == SOCKET_ERROR)
 	{
 		//printf("listen error !");
-		return 0;
 	}
 
 	//循环接收数据  
@@ -123,15 +120,4 @@ int thread_socket()
 	}
 	closesocket(slisten);
 	WSACleanup();
-	return 0;
 }
-
-int file_service_qt::on_pushButton_clicked()
-{
-	
-
-	std::thread t(thread_socket);
-	t.join();
-	return 0;
-}
-
