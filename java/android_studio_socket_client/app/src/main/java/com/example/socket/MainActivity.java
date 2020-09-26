@@ -85,8 +85,8 @@ public class MainActivity extends AppCompatActivity {
                     Log.d("下面的输入栏的端口（传文件的端口），传文件名的端口为这个端口减一:",String.valueOf(port_file));
                     Log.d("ip地址:",ipadress);
                 }
-                Thread thread2 = new Thread(new SendStr(ipadress, port_file-1, file_name.getText().toString()));
-                thread2.start();
+                //Thread thread2 = new Thread(new SendStr(ipadress, port_file-1, file_name.getText().toString()));
+                //thread2.start();
                 Thread thread3 = new Thread(new SendImg((EditText) findViewById(R.id.img_name)));
                 thread3.start();
             }
