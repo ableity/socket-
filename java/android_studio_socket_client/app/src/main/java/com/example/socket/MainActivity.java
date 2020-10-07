@@ -263,7 +263,12 @@ public class MainActivity extends AppCompatActivity {
                     socket = new Socket(ipadress, port);
                     DataOutputStream out = new DataOutputStream(socket.getOutputStream());
                     Log.d("SendStr函数里一个莫名其妙的输出", "out=" + out.toString() + " socket=" + socket.toString());
-                    out.writeUTF(text);
+
+                    //writeUTF在传输时会出现问题（c语言中没有找到合适的读取函数。）
+                    byte[] temp = text.getBytes();
+                    out.write(temp);
+
+                    //out.writeUTF(text);
                     //socket.shutdownOutput();
 
                     Log.d("进度", "1");

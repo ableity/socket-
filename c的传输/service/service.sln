@@ -17,6 +17,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test_qt", "test_qt\test_qt.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test", "test\test.vcxproj", "{012C28B3-164D-4600-B99D-217418B17EAF}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "java_c(socket)_str", "java_c(socket)_str\java_c(socket)_str.vcxproj", "{FDE7EB3C-B9CA-4529-90C7-6A1835CA3064}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -77,6 +79,14 @@ Global
 		{012C28B3-164D-4600-B99D-217418B17EAF}.Release|Win32.Build.0 = Release|Win32
 		{012C28B3-164D-4600-B99D-217418B17EAF}.Release|x64.ActiveCfg = Release|x64
 		{012C28B3-164D-4600-B99D-217418B17EAF}.Release|x64.Build.0 = Release|x64
+		{FDE7EB3C-B9CA-4529-90C7-6A1835CA3064}.Debug|Win32.ActiveCfg = Debug|Win32
+		{FDE7EB3C-B9CA-4529-90C7-6A1835CA3064}.Debug|Win32.Build.0 = Debug|Win32
+		{FDE7EB3C-B9CA-4529-90C7-6A1835CA3064}.Debug|x64.ActiveCfg = Debug|x64
+		{FDE7EB3C-B9CA-4529-90C7-6A1835CA3064}.Debug|x64.Build.0 = Debug|x64
+		{FDE7EB3C-B9CA-4529-90C7-6A1835CA3064}.Release|Win32.ActiveCfg = Release|Win32
+		{FDE7EB3C-B9CA-4529-90C7-6A1835CA3064}.Release|Win32.Build.0 = Release|Win32
+		{FDE7EB3C-B9CA-4529-90C7-6A1835CA3064}.Release|x64.ActiveCfg = Release|x64
+		{FDE7EB3C-B9CA-4529-90C7-6A1835CA3064}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -21,7 +21,7 @@ int main()
 	//SOCKET sockServer = socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP);
 	sockaddr_in addrServer = {};
 	addrServer.sin_family = PF_INET;
-	addrServer.sin_addr.S_un.S_addr = inet_addr("127.0.0.1");//绑定本机地址
+	//addrServer.sin_addr.S_un.S_addr = inet_addr("127.0.0.1");//绑定本机地址
 	addrServer.sin_port = htons(10000);
 	//绑定服务器端口号和IP地址
 	//int bind(int sockfd, const struct sockaddr *addr, socklen_t addrlen);
@@ -47,7 +47,7 @@ int main()
 
 	//1.向客户端发送信息
 	string str = "hello client";
-	send(sockClient, str.c_str(), str.length(), NULL);
+	//send(sockClient, str.c_str(), str.length(), NULL);
 	/*while (1)
 	{*/
 	//2.接受客户端信息
