@@ -51,6 +51,31 @@ void workthread::RecvFile() {
 	led->setText("receive end");
 }
 
+void workthread::RecvStr()
+{
+		cout << "start recv str!" << endl;
+		char buf[1024];
+		int len = recv(m_Client, buf, 1024, 0);
+		if (len == 0)
+		{
+			cout << "connection has closed" << endl;
+			//break;
+		}
+		else if (len == SOCKET_ERROR)
+		{
+			cout << "recv error" << WSAGetLastError() << endl;
+			//break;
+		}
+		else
+		{
+			char* outbuf = new char[len];
+			memcpy(outbuf, buf, len);
+			outbuf[len] = 0;
+			cout << "recv data:" << outbuf << endl;
+			//delete outbuf;
+		}
+}
+
 
 
 

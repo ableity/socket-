@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 EditText edittext = findViewById(R.id.text);
                 String text = edittext.getText().toString();
-                Thread thread2 = new Thread(new SendAndGetStr(ipadress, port, text));
+                Thread thread2 = new Thread(new SendStr(ipadress, port, text));
                 thread2.start();
             }
         });
@@ -211,6 +211,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void run() {
             Socket socket = null;
+            Socket socket2 = null;
 
             if (text.equals("") || text == null) {
                 return;
@@ -221,15 +222,31 @@ public class MainActivity extends AppCompatActivity {
                     socket = new Socket(ipadress, port);
                     DataOutputStream out = new DataOutputStream(socket.getOutputStream());
                     Log.d("SendStr函数里一个莫名其妙的输出", "out=" + out.toString() + " socket=" + socket.toString());
-                    out.writeUTF(text);
+                    byte[] temp = text.getBytes();
+                    out.write(temp);
+                    out.flush();
+                    //out.close();
+                    Log.d("第一处标记", "-");
+                    out.write(temp);
+                    Log.d("第2处标记", "-");
                     out.flush();
                     out.close();
+
+                    socket2 = new Socket(ipadress, port);
+                    DataOutputStream out2 = new DataOutputStream(socket2.getOutputStream());
+                    byte[] temp2 = text.getBytes();
+                    out2.write(temp2);
+                    //out.flush();
+                    //out.close();
+                    out2.flush();
+                    out2.close();
                 } catch (IOException e) {
-                    Log.d("SendStr函数错误", "无法获取IP:" + e.getMessage());
+                    Log.d("出现错误", "位于sendstr的try中：" + e.getMessage());
                 } finally {
                     if (null != socket) {
                         try {
                             socket.close();
+                            socket2.close();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }

@@ -14,7 +14,19 @@ using namespace std;
 
 SOCKET m_Client;
 void SendFile();
-void RecvFile();
+void RecvFile(string filename);
+string RecvStr();
+std::string& trim(std::string& s)
+{
+	if (s.empty())
+	{
+		return s;
+	}
+
+	s.erase(0, s.find_first_not_of(" "));
+	s.erase(s.find_last_not_of(" ") + 1);
+	return s;
+}
 
 int main(int argc, char* argv[])
 {
@@ -37,7 +49,7 @@ int main(int argc, char* argv[])
 	//绑定IP和端口  
 	sockaddr_in sin;
 	sin.sin_family = AF_INET;
-	sin.sin_port = htons(8888);
+	sin.sin_port = htons(18895);
 	sin.sin_addr.S_un.S_addr = INADDR_ANY;
 	if (bind(slisten, (LPSOCKADDR)&sin, sizeof(sin)) == SOCKET_ERROR)
 	{
@@ -55,6 +67,8 @@ int main(int argc, char* argv[])
 	sockaddr_in remoteAddr;
 	int nAddrlen = sizeof(remoteAddr);
 	char revData[255];
+	int nameok = 0;
+	string filename;
 	while (true)
 	{
 		printf("等待连接...\n");
@@ -64,9 +78,20 @@ int main(int argc, char* argv[])
 			printf("accept error !");
 			continue;
 		}
-		printf("接受到一个连接：%s \r\n", inet_ntoa(remoteAddr.sin_addr));
 		//SendFile();
-		RecvFile();
+		//RecvFile();
+		if (nameok == 0)
+		{
+			filename=RecvStr();
+			nameok = 1;
+		}
+		else if(nameok == 1)
+		{
+			RecvFile(filename);
+			nameok = 0;
+		}
+
+
 		closesocket(m_Client);
 	}
 	closesocket(slisten);
@@ -74,12 +99,40 @@ int main(int argc, char* argv[])
 	return 0;
 }
 
-void RecvFile() {
+string RecvStr()
+{
+	cout << "start recv str!" << endl;
+	char buf[1024];
+	int len = recv(m_Client, buf, 1024, 0);
+	string out;
+	if (len == 0)
+	{
+		cout << "connection has closed" << endl;
+		//break;
+	}
+	else if (len == SOCKET_ERROR)
+	{
+		cout << "recv error" << WSAGetLastError() << endl;
+		//break;
+	}
+	else
+	{
+		char* outbuf = new char[len];
+		memcpy(outbuf, buf, len);
+		out = outbuf;
+		//delete outbuf;
+	}
+	return out;
+}
+
+void RecvFile(string filename) {
 	cout << "start recv!" << endl;
 	const int bufferSize = 1024;
 	char buffer[bufferSize] = { 0 };
 	int readLen = 0;
-	string desFileName = "D:\\data\\in\\xjpic00.jpg";
+	string desFileName = "D:\\data\\in\\"+filename;
+	trim(desFileName);
+	cout << "filepath:" << desFileName <<"end"<< endl;
 	ofstream desFile;
 	desFile.open(desFileName.c_str(), ios::binary);
 	if (!desFile)
@@ -121,4 +174,7 @@ void SendFile() {
 	srcFile.close();
 	cout << "send: " << haveSend << "B" << endl;
 }
+
+
+
 

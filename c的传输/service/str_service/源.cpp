@@ -38,39 +38,47 @@ int main()
 	SOCKET sockClient = {};
 	SOCKADDR addrClient = {};
 	int nSzie = sizeof(addrClient);
-	sockClient = accept(sockServer, &addrClient, &nSzie);
-	if (sockClient == INVALID_SOCKET)
-	{
-		cout << "accept error" << endl;
-	}
-	printf("客户端已经连接\n");
 
-	//1.向客户端发送信息
-	string str = "hello client";
-	//send(sockClient, str.c_str(), str.length(), NULL);
-	/*while (1)
-	{*/
-	//2.接受客户端信息
-	char buf[1024];
-	int len = recv(sockClient, buf, 1024, 0);
-	if (len == 0)
+	while (true)
 	{
-		cout << "connection has closed" << endl;
-		//break;
+
+		sockClient = accept(sockServer, &addrClient, &nSzie);
+		if (sockClient == INVALID_SOCKET)
+		{
+			cout << "accept error" << endl;
+		}
+		printf("客户端已经连接\n");
+
+		//1.向客户端发送信息
+		//string str = "hello client";
+		//send(sockClient, str.c_str(), str.length(), NULL);
+		/*while (1)
+		{*/
+		//2.接受客户端信息
+		char buf[1024];
+		int len = recv(sockClient, buf, 1024, 0);
+		if (len == 0)
+		{
+			cout << "connection has closed" << endl;
+			//break;
+		}
+		else if (len == SOCKET_ERROR)
+		{
+			cout << "recv error" << WSAGetLastError() << endl;
+			//break;
+		}
+		else
+		{
+			char* outbuf = new char[len];
+			memcpy(outbuf, buf, len);
+			outbuf[len] = 0;
+			cout << "recv data:" << outbuf << endl;
+			//delete outbuf;
+		}
+
 	}
-	else if (len == SOCKET_ERROR)
-	{
-		cout << "recv error" << WSAGetLastError() << endl;
-		//break;
-	}
-	else
-	{
-		char* outbuf = new char[len + 1];
-		memcpy(outbuf, buf, len);
-		outbuf[len] = 0;
-		cout << "recv data:" << outbuf << endl;
-		delete outbuf;
-	}
+
+	
 	//}
 	closesocket(sockServer);
 	closesocket(sockClient);

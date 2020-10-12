@@ -20,5 +20,6 @@ private:
     int port;//¶Ë¿Ú
     string path;//Â·¾¶
     void RecvFile();
+    void RecvStr();
 };
 
