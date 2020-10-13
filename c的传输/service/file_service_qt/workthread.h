@@ -19,7 +19,7 @@ private:
     SOCKET m_Client;
     int port;//¶Ë¿Ú
     string path;//Â·¾¶
-    void RecvFile();
-    void RecvStr();
+    void RecvFile(string filename);
+    string RecvStr();
 };
 

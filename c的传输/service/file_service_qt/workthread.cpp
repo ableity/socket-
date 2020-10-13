@@ -23,12 +23,17 @@ workthread::workthread(int port_temp, string path_temp, QLabel *label)
 	//workthread::path = path_temp;
 }
 
-void workthread::RecvFile() {
-	led->setText("begin receive");
+void workthread::RecvFile(string filename) {
 	const int bufferSize = 1024;
 	char buffer[bufferSize] = { 0 };
 	int readLen = 0;
-	string desFileName = path;
+
+	//文件的存储路径（文件名前的部分，如"D:\\data\\in\\lilei.jpg"为"D:\\data\\in\\"）
+	string desFileName;
+	desFileName = path + filename;
+
+	cout << "开始传输文件" << desFileName << endl;
+	led->setText("begin receive");
 	ofstream desFile;
 	desFile.open(desFileName.c_str(), ios::binary);
 	if (!desFile)
@@ -48,35 +53,38 @@ void workthread::RecvFile() {
 		}
 	} while (true);
 	desFile.close();
-	led->setText("receive end");
+	led->setText("end");
 }
 
-void workthread::RecvStr()
+string workthread::RecvStr()
 {
-		cout << "start recv str!" << endl;
-		char buf[1024];
-		int len = recv(m_Client, buf, 1024, 0);
-		if (len == 0)
-		{
-			cout << "connection has closed" << endl;
-			//break;
-		}
-		else if (len == SOCKET_ERROR)
-		{
-			cout << "recv error" << WSAGetLastError() << endl;
-			//break;
-		}
-		else
-		{
-			char* outbuf = new char[len];
-			memcpy(outbuf, buf, len);
-			outbuf[len] = 0;
-			cout << "recv data:" << outbuf << endl;
-			//delete outbuf;
-		}
+	led->setText("开始传输文件名");
+	cout << "开始传输文件名：" << endl;
+	char buf[1024];
+	int len = recv(m_Client, buf, 1024, 0);
+	string out;
+	if (len == 0)
+	{
+		cout << "connection has closed" << endl;
+		//break;
+	}
+	else if (len == SOCKET_ERROR)
+	{
+		cout << "recv error" << WSAGetLastError() << endl;
+		//break;
+	}
+	else
+	{
+
+		char* outbuf = new char[len];
+		memcpy(outbuf, buf, len);
+		out = outbuf;
+
+		//delete outbuf;
+	}
+
+	return out;
 }
-
-
 
 
 void workthread::run()
@@ -114,19 +122,41 @@ void workthread::run()
 	//循环接收数据  
 	sockaddr_in remoteAddr;
 	int nAddrlen = sizeof(remoteAddr);
-	char revData[255];
+	int nameok = 0;
+	string filename;
+	int is1 = 1;
 	while (true)
 	{
-		printf("等待连接...\n");
+		if (nameok == 0)
+		{
+			led->setText("waitting......");
+			if (is1 == 0)
+			{
+				led->setText(QString::fromStdString(filename) +" is done \n waitting......");
+			}
+		}
 		m_Client = accept(slisten, (SOCKADDR*)&remoteAddr, &nAddrlen);
 		if (m_Client == INVALID_SOCKET)
 		{
 			printf("accept error !");
 			continue;
 		}
-		//printf("接受到一个连接：%s \r\n", inet_ntoa(remoteAddr.sin_addr));
 		//SendFile();
-		RecvFile();
+		//RecvFile();
+		if (nameok == 0)
+		{
+			filename = RecvStr();
+			nameok = 1;
+		}
+		else if (nameok == 1)
+		{	//while循环来阶段文件名尾部的异常字符（如"lilei.jpg"会传输为"lilei.jpg      "但经验证后面的不是空格，用去除空格的方法无法对字符串处理）
+			//此处只判断了小写字母，没有判断其它情况，因为一般文件后缀都是小写字母，但可能留下未知的bug
+			while (filename[filename.length() - 1] >= 'z' || filename[filename.length() - 1] <= 'a')
+				filename.pop_back();
+			RecvFile(filename);
+			nameok = 0;
+		}
+		is1 = 0;
 		closesocket(m_Client);
 	}
 	closesocket(slisten);

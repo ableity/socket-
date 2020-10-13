@@ -3,26 +3,30 @@
 using namespace std;
 
 
-std::string& trim(std::string& s)
+string editpath(string str)
 {
-	if (s.empty())
+	int n = str.length();
+	string temp = "\\";
+	for (int i = n - 1;i > 0;i--)
 	{
-		return s;
+		if (str[i] == '\\')
+		{
+			
+			str.insert(i, temp);
+		}
 	}
-
-	s.erase(0, s.find_first_not_of(" "));
-	s.erase(s.find_last_not_of(" ") + 1);
-	return s;
+	return str;
 }
+
 //·şÎñ¶Ë
 int main()
 {
-	string n = "lilei";
-	string m = "duhuimin                ";
-	string t = n + m;
-	cout << t<<"end"<<endl;
-	trim(t);
-	cout << t<<"end"<<endl;
+
+	string t = "lil\ei",t1="lilei";
+	cout << "t:" << t.length() << endl;
+	cout << "t1:" << t1.length() << endl;
+	t = editpath(t);
+	cout << t<<endl;
 
 	while (true)
 	{

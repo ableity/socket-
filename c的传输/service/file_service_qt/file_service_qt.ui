@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>319</width>
-    <height>228</height>
+    <width>309</width>
+    <height>278</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,8 +17,8 @@
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>120</x>
-      <y>120</y>
+      <x>70</x>
+      <y>170</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -30,10 +30,10 @@
    <widget class="QLabel" name="showifo">
     <property name="geometry">
      <rect>
-      <x>80</x>
-      <y>40</y>
-      <width>151</width>
-      <height>61</height>
+      <x>70</x>
+      <y>50</y>
+      <width>171</width>
+      <height>71</height>
      </rect>
     </property>
     <property name="frameShape">
@@ -43,13 +43,49 @@
      <string/>
     </property>
    </widget>
+   <widget class="QLineEdit" name="lineEdit">
+    <property name="geometry">
+     <rect>
+      <x>110</x>
+      <y>130</y>
+      <width>113</width>
+      <height>20</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>130</y>
+      <width>31</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>地址：</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_2">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>170</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>修改地址</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>319</width>
+     <width>309</width>
      <height>23</height>
     </rect>
    </property>
